@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos7.1.1503
 
 MAINTAINER Jakub Pazdyga <jakub.pazdyga@ft.com>
 
