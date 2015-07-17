@@ -34,6 +34,9 @@ RUN ln -s /usr/share/zoneinfo/UTC /etc/localtime
 # Connect to network
 RUN echo "NETWORKING=yes" > /etc/sysconfig/network
 
+# Enable access to logs and configuration files
+VOLUME /var/log /etc
+
 # Clean up everything
 RUN rm -rf /var/cache/yum/* && yum clean all
 RUN rm -rf /etc/ld.so.cache
