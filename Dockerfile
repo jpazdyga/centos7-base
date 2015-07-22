@@ -18,8 +18,7 @@ RUN yum -y install \
     vim-minimal \
     sudo \
     python-pip \
-    python-setuptools \
-    fakesystemd
+    python-setuptools 
 
 # Install supervisor daemon using pip
 RUN pip install supervisor
