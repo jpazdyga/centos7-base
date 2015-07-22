@@ -38,7 +38,7 @@ RUN echo "NETWORKING=yes" > /etc/sysconfig/network
 VOLUME /var/log /etc
 
 # Clean up everything
-RUN rm -rf /var/cache/yum/* && yum clean all && rm -f /var/lib/rpm/__db*
+RUN rm -rf /var/cache/yum/* && yum clean all
 RUN rm -rf /etc/ld.so.cache
 RUN rm -rf /sbin/sln
 RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n},{lib,lib64}/gconv,bin/localedef,sbin/build-locale-archive}
