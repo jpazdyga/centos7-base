@@ -9,8 +9,6 @@ RUN echo '[ CentOS 7 Base ]' > /etc/motd
 RUN rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
 
 # Add EPEL Repository
-RUN rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
-RUN yum -y install epel-release
 
 RUN yum -y update
 
@@ -38,7 +36,7 @@ RUN echo "NETWORKING=yes" > /etc/sysconfig/network
 VOLUME /var/log /etc
 
 # Clean up everything
-RUN rm -rf /var/cache/yum/* && yum clean all
+RUN yum clean all
 RUN rm -rf /etc/ld.so.cache
 RUN rm -rf /sbin/sln
 RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n},{lib,lib64}/gconv,bin/localedef,sbin/build-locale-archive}
