@@ -12,13 +12,11 @@ RUN rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
 RUN rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 	RUN yum -y install epel-release
 
-RUN yum -y update
+RUN yum -y update; yum check
 
 RUN yum -y install \
     vim-minimal \
-    sudo \
-    python-pip \
-    python-setuptools 
+    sudo 
 
 # Install supervisor daemon using pip
 RUN pip install supervisor
