@@ -12,13 +12,28 @@ RUN rpm --import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-7
 RUN rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 RUN yum -y install epel-release
 
-RUN yum -y update; yum check
+ENV container docker
+
+RUN yum -y update
+
+RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
+RUN yum -y update; yum clean all; \
+(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+CMD ["/usr/sbin/init"]
 
 RUN yum -y install \
     vim-minimal \
     sudo \
     python-setuptools
 
+RUN yum check
 # Install supervisor daemon using pip
 RUN easy_install supervisor
 RUN mkdir -p /etc/supervisor.d/
@@ -43,4 +58,4 @@ RUN rm -rf /sbin/sln
 RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n},{lib,lib64}/gconv,bin/localedef,sbin/build-locale-archive}
 RUN rm -rf /var/cache/ldconfig/*
 
-#CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor.d/supervisord.conf"]
