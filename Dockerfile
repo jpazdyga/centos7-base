@@ -57,7 +57,4 @@ RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n
 RUN rm -rf /var/cache/ldconfig/*
 RUN rpmdb --rebuilddb; rpmdb --initdb
 
-# Enable access to logs and configuration files
-VOLUME /var/log
-
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor.d/supervisord.conf"]
