@@ -16,7 +16,7 @@ ENV container docker
 ENV DATE_TIMEZONE UTC
 
 # Enable access to logs and configuration files
-VOLUME /var/log /etc
+VOLUME /var/log
 
 RUN yum -y update
 
@@ -47,8 +47,7 @@ RUN mkdir -p /var/log/supervisor/
 ADD supervisord.conf /etc/supervisor.d/supervisord.conf
 
 # Set the timezone
-RUN rm -f /etc/localtime
-RUN ln -s /usr/share/zoneinfo/UTC /etc/localtime
+RUN rm -f /etc/localtime; ln -s /usr/share/zoneinfo/UTC /etc/localtime
 
 # Connect to network
 RUN echo "NETWORKING=yes" > /etc/sysconfig/network
