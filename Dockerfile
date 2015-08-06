@@ -13,6 +13,10 @@ RUN rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 RUN yum -y install epel-release
 
 ENV container docker
+ENV DATE_TIMEZONE UTC
+
+# Enable access to logs and configuration files
+VOLUME /var/log /etc
 
 RUN yum -y update
 
@@ -31,7 +35,8 @@ CMD ["/usr/sbin/init"]
 RUN yum -y install \
     vim-minimal \
     sudo \
-    python-setuptools
+    python-setuptools \
+    net-tools
 
 RUN yum check
 # Install supervisor daemon using pip
@@ -48,14 +53,12 @@ RUN ln -s /usr/share/zoneinfo/UTC /etc/localtime
 # Connect to network
 RUN echo "NETWORKING=yes" > /etc/sysconfig/network
 
-# Enable access to logs and configuration files
-VOLUME /var/log /etc
-
 # Clean up everything
 RUN yum clean all
 RUN rm -rf /etc/ld.so.cache
 RUN rm -rf /sbin/sln
 RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n},{lib,lib64}/gconv,bin/localedef,sbin/build-locale-archive}
 RUN rm -rf /var/cache/ldconfig/*
+RUN rpmdb --rebuilddb; rpmdb --initdb
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor.d/supervisord.conf"]
