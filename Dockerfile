@@ -15,9 +15,6 @@ RUN yum -y install epel-release
 ENV container docker
 ENV DATE_TIMEZONE UTC
 
-# Enable access to logs and configuration files
-VOLUME /var/log
-
 RUN yum -y update
 
 RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
@@ -59,5 +56,8 @@ RUN rm -rf /sbin/sln
 RUN rm -rf /usr/{{lib,share}/locale,share/{man,doc,info,gnome/help,cracklib,il8n},{lib,lib64}/gconv,bin/localedef,sbin/build-locale-archive}
 RUN rm -rf /var/cache/ldconfig/*
 RUN rpmdb --rebuilddb; rpmdb --initdb
+
+# Enable access to logs and configuration files
+VOLUME /var/log
 
 CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor.d/supervisord.conf"]
