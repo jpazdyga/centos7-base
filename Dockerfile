@@ -33,7 +33,8 @@ RUN yum -y install \
     vim-minimal \
     sudo \
     python-setuptools \
-    net-tools
+    net-tools \
+    screen
 
 RUN yum check
 # Install supervisor daemon using pip
@@ -42,6 +43,7 @@ RUN mkdir -p /etc/supervisor.d/
 RUN mkdir -p /var/log/supervisor/
 # pre-configure supervisor daemon ADD supervisord.conf /etc/supervisor.d/supervisord.conf
 ADD supervisord.conf /etc/supervisor.d/supervisord.conf
+ADD screenrc /etc/screenrc
 
 # Set the timezone
 RUN rm -f /etc/localtime; ln -s /usr/share/zoneinfo/UTC /etc/localtime
