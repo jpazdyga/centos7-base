@@ -27,8 +27,7 @@ yum -y install \
     python-setuptools \
     net-tools \
     screen \
-    syslog
-
+    syslog; \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 rm -f /lib/systemd/system/multi-user.target.wants/*;\
 rm -f /etc/systemd/system/*.wants/*;\
