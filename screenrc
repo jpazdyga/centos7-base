@@ -1,0 +1,26 @@
+defscrollback 32768
+vbell off
+bell_msg ""
+defflow off
+startup_message off
+caption always '%-w%{+b}%n %t%{-b}%+w'
+logfile $HOME/history/screen/screenlog-%Y%m%d-%n-%H
+ignorecase on
+termcapinfo xterm* ti@:te@
+attrcolor b ".I"
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+defbce "on"
+term xterm-256color
+bindkey ^[[5;5~ prev
+bindkey ^[[6;5~ next
+bindkey "^[[5;2~" eval "copy" "stuff ^u"
+bindkey -m "^[[5;2~" stuff ^u
+bindkey -m "^[[6;2~" stuff ^d
+bindkey -d "^[[5S" eval copy "stuff 5\025"
+bindkey -m "^[[5S" stuff 5\025
+bindkey -d "^[[5T" eval copy "stuff 5\004"
+bindkey -m "^[[5T" stuff 5\004
+bindkey -d "^[[25S" eval copy "stuff \025"
+bindkey -m "^[[25S" stuff \025
+bindkey -d "^[[25T" eval copy "stuff \004"
+bindkey -m "^[[25T" stuff \004
