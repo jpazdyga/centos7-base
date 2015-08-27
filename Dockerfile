@@ -17,7 +17,10 @@ ENV DATE_TIMEZONE UTC
 
 RUN yum -y update
 
-RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs; \
+RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
+
+RUN yum -y update; \
+yum clean all; \
 yum -y install \
     vim-minimal \
     sudo \
@@ -26,7 +29,6 @@ yum -y install \
     screen \
     syslog
 
-RUN yum -y update; yum clean all; \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 rm -f /lib/systemd/system/multi-user.target.wants/*;\
 rm -f /etc/systemd/system/*.wants/*;\
