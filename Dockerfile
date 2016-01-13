@@ -1,6 +1,6 @@
 FROM centos:centos7
 
-MAINTAINER Jakub Pazdyga <jakub.pazdyga@ft.com>
+MAINTAINER Jakub Pazdyga <admin@lascalia.com>
 
 # Set up identifier
 RUN echo '[ CentOS 7 Base ]' > /etc/motd
@@ -13,7 +13,6 @@ RUN rpm --import http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
 RUN yum -y install epel-release
 
 ENV container docker
-<<<<<<< HEAD
 
 RUN yum -y update
 
@@ -28,9 +27,7 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 CMD ["/usr/sbin/init"]
-=======
 ENV DATE_TIMEZONE UTC
->>>>>>> ec5685c363f1de08b861030b80099439a7e2f5f3
 
 RUN yum -y update
 
