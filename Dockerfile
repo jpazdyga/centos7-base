@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos7.2.1511
 
 MAINTAINER Jakub Pazdyga <admin@lascalia.com>
 
